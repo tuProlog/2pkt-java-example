@@ -32,7 +32,6 @@ public class Example {
     public static void main(String[] args) throws IOException {
         BufferedReader stdinReader = new BufferedReader(new InputStreamReader(System.in));
         ClausesReader theoryReader = ClausesReader.getWithDefaultOperators();
-        TermParser termParser = TermParser.getWithDefaultOperators();
         SolverFactory solverFactory = ClassicSolverFactory.INSTANCE; // or Solver.getClassic()
         SolutionFormatter defaultSolutionFormatter = SolutionFormatter.of(TermFormatter.prettyExpressions());
 
@@ -42,6 +41,8 @@ public class Example {
         Solver solver = solverFactory.solverWithDefaultBuiltins(theory);
 
         System.out.println("# Successfully loaded " + input);
+        System.out.println("# Currently loaded operators: " + solver.getOperators());
+        TermParser termParser = TermParser.withOperators(solver.getOperators());
 
         while (true) {
             System.out.print("> ");
